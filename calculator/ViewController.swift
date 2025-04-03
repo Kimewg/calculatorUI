@@ -112,9 +112,14 @@ class ViewController: UIViewController {
             label.text = "0"
             // "=" 버튼이 눌리면 연산을 함
         } else if title == "=" {
+            // 마지막이 라벨 타이블이 연산자일 때 "="이 안 눌리게 하기
+            if let lastChar = label.text?.last, ["+", "-", "*", "/"].contains(String(lastChar)) {
+                return
+            }
             let result = calculate(expression: label.text ?? "" )
             label.text = "\(result ?? 0)"
         }
+  
         // 연산자가 연속으로 두번 쓰이는 것을 방지
         else if ["+", "-", "*", "/"].contains(title) {
             if let lastChar = label.text?.last, ["+", "-", "*", "/"].contains(String(lastChar)) {
@@ -134,6 +139,7 @@ class ViewController: UIViewController {
     
   
 }
+
 
 
 
